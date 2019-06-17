@@ -1,8 +1,13 @@
 package tad;
 
 public class LinkedList<R> implements MyList<R> {
-    private Node<R> first;
     int size;
+    private Node<R> first;
+
+    public void makeEmpty() {
+        first = null;
+        size = 0;
+    }
 
     public void add(R value) {
         Node<R> node = new Node<R>(value);
@@ -20,12 +25,14 @@ public class LinkedList<R> implements MyList<R> {
     public void remove(int position) {
         Node<R> nodeToLast = first;
         Node<R> aux = null;
-        for (int i = 0; i < position - 1; i++) {
+        for (int i = 0; i < position; i++) { //wrong -1 we are talking about pos not size
             nodeToLast = nodeToLast.getNext();
         }
-        aux = nodeToLast.getNext();
-        aux = aux.getNext();
-        nodeToLast.setNext(aux);
+        if (!(position + 1 == size)) { //if position is not the last at the arrayList
+            aux = nodeToLast.getNext();
+            aux = aux.getNext();
+            nodeToLast.setNext(aux);
+        } else nodeToLast.setNext(null);
         size--;
     }
 
@@ -39,25 +46,50 @@ public class LinkedList<R> implements MyList<R> {
         return aux;
     }
 
-    public boolean searchElement(R element) {
+    public boolean contains(R element) { // TODO CHECKER...
         boolean found = false;
-        Node<R> nodeNoNext = first;
-        while (nodeNoNext.getNext() != null) {
-            if (nodeNoNext.getValue().equals(element)) found = true;
-            nodeNoNext = nodeNoNext.getNext();
+        Node<R> nodeNoNext = first; //We never checked this first case (amazing)
+        if (first != null) {
+            if(first.getValue().equals(element))return true;
+            if (nodeNoNext.getValue().equals(element)) {
+                return true;
+            }
+
+            if (first.getNext() != null) while (nodeNoNext.getNext() != null) {
+                if (nodeNoNext.getValue().equals(element)) {
+                    found = true;
+                    break;
+                }
+                nodeNoNext = nodeNoNext.getNext();
+            }
         }
         return found;
     }
 
+    public void remove(R element) { //TODO CHECKER...
+        Node<R> nodeToLast = first;
+        if (first.getValue().equals(element)) {
+            if (first.getNext() != null) first = first.getNext();
+            else first = null;
+            size--;
+        }
+        Node<R> aux = null;
+        while (nodeToLast.getNext() != null) {
+            if (nodeToLast.getValue().equals(element)) {
+                nodeToLast = nodeToLast.getNext();
+                size--;
+                break;
+            }
+        }
+    }
+
     public void addFirst(R value) {
-        Node<R> aux = new Node<R>();
+        Node<R> aux = new Node<R>(value);
         if (first != null) {
-            aux.setValue(first.getValue());
-            aux.setNext(first.getNext());
-            first.setValue(value);
-            first.setNext(aux);
+            aux.setNext(first);
+            first = aux;
+            size++;
         } else add(value);
-        size++;
     }
 
     public int size() {
@@ -65,8 +97,8 @@ public class LinkedList<R> implements MyList<R> {
     }
 
     public void addOrder(R... values) {
-        for (int i = 0; i < values.length; i++) {
-            add(values[i]);
+        for (R value : values) {
+            add(value);
         }
     }
 }

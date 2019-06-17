@@ -2,19 +2,19 @@ package tad;
 
 import tad.tadExceptions.UnderflowException;
 
-public class BinarySearchTree<K extends Comparable<K>, J>
-        implements MyTree<K, J> {
+    public class BinarySearchTree<K extends Comparable<K>, J>
+            implements MyTree<K, J> {
 
-    public BinaryNode<K, J> root;
-    private int size;
+        public BinaryNode<K, J> root;
+        private int size;
 
-    BinaryNode<K, J> getRoot() {
-        return root;
-    }
+        BinaryNode<K, J> getRoot() {
+            return root;
+        }
 
-    public void makeEmpty() {
-        root = null;
-    }
+        public void makeEmpty() {
+            root = null;
+        }
 
     public boolean isEmpty() {
         return (root == null);
