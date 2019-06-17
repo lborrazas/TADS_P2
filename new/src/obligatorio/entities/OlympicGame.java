@@ -48,4 +48,12 @@ public class OlympicGame {
     public void setSeason(boolean season) {
         this.season = season;
     }
+
+    public OlympicGame(String name, int year, boolean season, City city, LinkedList<Event> events) {
+        this.name = name;
+        this.year = year;
+        this.season = season;
+        this.city = city;
+        this.events = events;
+    }
 }

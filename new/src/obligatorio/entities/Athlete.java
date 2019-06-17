@@ -55,4 +55,13 @@ public class Athlete {
     public void setTeam(Team team) {
         this.team = team;
     }
+
+    public Athlete(String name, long id, boolean sex, float weight, Team team, NationalOlympicCommittee region) {
+        this.name = name;
+        this.id = id;
+        this.sex = sex;
+        this.weight = weight;
+        this.team = team;
+        this.region = region;
+    }
 }
