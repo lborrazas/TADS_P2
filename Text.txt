@@ -1,3 +1,6 @@
 Hash de atletas ordendos por region buckets = cantidad de regiones + (se espera que hayan como mucho 50 regiones nuevas)
 Lista de Regiones.. iterar en esta y buscar en el otro. Darle a la region la cantidad de atletas y cantidad de medallas de la region.
 Hash de Participaciones ordenadas por atletas.. para buscar la medalla de cada atleta cantidad de buckets a decidir.
+Hash de Paritcipaciones ordenadas por juego olimpico
+Hash de Atletas ordenados por equipo
+Lista de Juegos olimpicos ordenadas por fecha (compareTo)
