@@ -1,6 +1,6 @@
 package tad;
 
-import org.jetbrains.annotations.Contract;
+
 
 public class DoubleLinkedList<T> implements MyList<T> {
 
@@ -8,17 +8,13 @@ public class DoubleLinkedList<T> implements MyList<T> {
     private Node tail;
     private int size;
 
-    @Contract(pure = true)
-    public DoubleLinkedList() {
-        size = 0;
-    }
 
     private class Node { //crear el nodo adentro es muuuuuy comodo
         T element;
         Node next;
         Node prev;
 
-        @Contract(pure = true)
+
         public Node(T element, Node next, Node prev) {
             this.element = element;
             this.next = next;
