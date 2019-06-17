@@ -1,6 +1,6 @@
 package obligatorio;
 
-import obligatorio.entities.NationalOlympicCommittee;
+import obligatorio.entities.*;
 import tad.LinkedList;
 import tad.SeparateChainingHashTable;
 
@@ -10,7 +10,10 @@ import java.io.FileReader;
 public class CargaDeDatos {
     private LinkedList<NationalOlympicCommittee> committeeLinkedList = new LinkedList<>();
     private SeparateChainingHashTable<NationalOlympicCommittee> committeHash = new SeparateChainingHashTable<>(11);
-
+    private SeparateChainingHashTable<AthleteN1> athleteHashNOC = new SeparateChainingHashTable<>(11);
+    private SeparateChainingHashTable<AthleteN2> athleteHashTEAM = new SeparateChainingHashTable<>(11);
+    private SeparateChainingHashTable<participationAthl> participationAthlete = new SeparateChainingHashTable<>(11);
+    private SeparateChainingHashTable<participationTeam> participationTeam = new SeparateChainingHashTable<>(11);
 
     public static void main(String[] args) throws Exception { //orden de megas estamos bien
 
@@ -36,7 +39,7 @@ public class CargaDeDatos {
         double startTime2 = System.nanoTime();
         while ((line = br.readLine()) != null) {
             String[] values = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-        
+
 
         }
     }
