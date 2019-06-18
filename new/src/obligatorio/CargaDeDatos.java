@@ -10,8 +10,8 @@ import java.io.FileReader;
 public class CargaDeDatos {
     private LinkedList<NationalOlympicCommittee> committeeLinkedList = new LinkedList<>();
     private SeparateChainingHashTable<NationalOlympicCommittee> committeHash = new SeparateChainingHashTable<>(11);
-    private SeparateChainingHashTable<AthleteN1> athleteHashNOC = new SeparateChainingHashTable<>(11);
-    private SeparateChainingHashTable<AthleteN2> athleteHashTEAM = new SeparateChainingHashTable<>(11);
+    private SeparateChainingHashTable<AthleteNRegion> athleteHashNOC = new SeparateChainingHashTable<>(11);
+    private SeparateChainingHashTable<AthleteNTeam> athleteHashTEAM = new SeparateChainingHashTable<>(11);
     private SeparateChainingHashTable<participationAthl> participationAthlete = new SeparateChainingHashTable<>(11);
     private SeparateChainingHashTable<participationTeam> participationTeam = new SeparateChainingHashTable<>(11);
 
@@ -25,23 +25,29 @@ public class CargaDeDatos {
             String[] values = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
             if (values.length == 2) {
                 cdd.chargeListCommittee(values[0], values[1]);
+                cdd.chargeHashCommittee(values[0], values[1]);
             } else if (values.length == 3) {
+                cdd.chargeHashCommittee(values[0], values[1], values[2]);
                 cdd.chargeListCommittee(values[0], values[1], values[2]);
             }
         }
-        System.out.println(cdd.committeeLinkedList.size());
+        System.out.println(cdd.committeHash.getCurrentSize());
+        NationalOlympicCommittee nationalOlympicCommittee = new NationalOlympicCommittee("ALG", "Mate");
+        LinkedList<NationalOlympicCommittee> list = cdd.committeHash.getAsociatedElements(nationalOlympicCommittee.hashCode());
+        System.out.println(list.get(0).getCode());
+
         double endTime = System.nanoTime();
         System.out.println("Carga de Datos: " + (endTime - startTime) / 1000000000 + " s");
         br.close();
         br = new BufferedReader(new FileReader("resources/athlete_events.csv"));
 
-        String line2 = null;
-        double startTime2 = System.nanoTime();
-        while ((line = br.readLine()) != null) {
-            String[] values = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-
-
-        }
+//        String line2 = null;
+//        double startTime2 = System.nanoTime();
+//        while ((line = br.readLine()) != null) {
+//            String[] values = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+//
+//
+//        }
     }
     private NationalOlympicCommittee chargeListCommittee(String code, String country ){
         NationalOlympicCommittee temp = new NationalOlympicCommittee(code, country);

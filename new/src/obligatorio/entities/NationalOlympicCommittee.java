@@ -7,7 +7,7 @@ public class NationalOlympicCommittee {
 
     public NationalOlympicCommittee(String code, String country) {
         this.code = code;
-        this.pais = pais;
+        this.pais = country;
         this.notes = null;
     }
 
@@ -22,5 +22,13 @@ public class NationalOlympicCommittee {
         for( int i = 0; i < this.code.length( ); i++ )
             hashVal = 37 * hashVal + this.code.charAt( i );
         return hashVal;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public String getPais() {
+        return pais;
     }
 }

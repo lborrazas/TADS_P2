@@ -35,6 +35,18 @@ public class SeparateChainingHashTable<K> {
         }
     }
 
+    public LinkedList<K> getAsociatedElements(int key) {
+        LinkedList<Node> thisList = theLists[myHash(key)];
+        LinkedList<K> elements = new LinkedList<>();
+        for (int i=0; i<thisList.size(); i++){
+            Node aux = thisList.get(i);
+            if (aux.key == key){
+                elements.add((K) aux.object);
+            }
+        }
+        return elements;
+    }
+
     public void remove(K o){
         Node node = new Node(o);
         LinkedList<Node> thisList = theLists[myHash(o.hashCode())];
