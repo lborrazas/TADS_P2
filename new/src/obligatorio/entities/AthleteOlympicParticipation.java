@@ -1,16 +1,16 @@
 package obligatorio.entities;
 
 public class AthleteOlympicParticipation {
-    private int medal;
+    private MedalType medal;
     private Event event;
     private OlympicGame olympicGame;
     private Athlete athlete;
 
-    public int getMedal() {
+    public MedalType getMedal() {
         return medal;
     }
 
-    public void setMedal(int medal) {
+    public void setMedal(MedalType medal) {
         this.medal = medal;
     }
 
@@ -35,6 +35,13 @@ public class AthleteOlympicParticipation {
     }
 
     public void setAthlete(Athlete athlete) {
+        this.athlete = athlete;
+    }
+
+    public AthleteOlympicParticipation(MedalType medal, Event event, OlympicGame olympicGame, Athlete athlete) {
+        this.medal = medal;
+        this.event = event;
+        this.olympicGame = olympicGame;
         this.athlete = athlete;
     }
 }

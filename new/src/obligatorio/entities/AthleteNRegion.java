@@ -3,6 +3,7 @@ package obligatorio.entities;
 public class AthleteNRegion {
     private Athlete athlete;
 
+
     public AthleteNRegion(Athlete athlete) {
         this.athlete = athlete;
     }

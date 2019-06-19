@@ -1,13 +1,13 @@
 package obligatorio.entities;
 
-import java.util.LinkedList;
+import tad.LinkedList;
 
 public class OlympicGame {
     private String name;
     private int year;
-    private boolean season;
+    private SeasonType season;
     private City city;
-    private LinkedList<Event> events = new LinkedList<>();
+    private LinkedList<Event> events ;
 
     public LinkedList<Event> getEvents() {
         return events;
@@ -41,19 +41,39 @@ public class OlympicGame {
         this.year = year;
     }
 
-    public boolean isSeason() {
+    public SeasonType isSeason() {
         return season;
     }
 
-    public void setSeason(boolean season) {
+    public void setSeason(SeasonType season) {
         this.season = season;
     }
 
-    public OlympicGame(String name, int year, boolean season, City city, LinkedList<Event> events) {
+    public OlympicGame(String name, int year, SeasonType season, City city, LinkedList<Event> events) {
         this.name = name;
         this.year = year;
         this.season = season;
         this.city = city;
         this.events = events;
+    }
+
+    public OlympicGame(String name, int year, SeasonType season, City city) {
+        this.name = name;
+        this.year = year;
+        this.season = season;
+        this.city = city;
+        this.events = null;
+    }
+
+
+    public SeasonType getSeason() {
+        return season;
+    }
+
+    public boolean equals(OlympicGame olympicGame) {
+        if (olympicGame.getName().equals(this.name) ){
+            return true;
+        }
+        return false;
     }
 }

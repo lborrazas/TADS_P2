@@ -3,7 +3,22 @@ package obligatorio.entities;
 public class Athlete {
     private String name;
     private long id;
-    private boolean sex;
+    private SexType sex;
+    private float height;
+    private int age;
+
+    public SexType getSex() {
+        return sex;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    public void setHeight(float height) {
+        this.height = height;
+    }
+
     private float weight;
     private Team team;
     private NationalOlympicCommittee region;
@@ -32,11 +47,11 @@ public class Athlete {
         this.id = id;
     }
 
-    public boolean isSex() {
+    public SexType isSex() {
         return sex;
     }
 
-    public void setSex(boolean sex) {
+    public void setSex(SexType sex) {
         this.sex = sex;
     }
 
@@ -56,12 +71,22 @@ public class Athlete {
         this.team = team;
     }
 
-    public Athlete(String name, long id, boolean sex, float weight, Team team, NationalOlympicCommittee region) {
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public Athlete(long id, String name, SexType sex, int age, float height, float weight, Team team, NationalOlympicCommittee region) {
         this.name = name;
         this.id = id;
         this.sex = sex;
         this.weight = weight;
         this.team = team;
         this.region = region;
+        this.height = height;
+        this.age = age;
     }
 }

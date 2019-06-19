@@ -2,7 +2,7 @@ package obligatorio.entities;
 
 public class participationAthl {
     private AthleteOlympicParticipation participation;
-    private Athlete athlete = participation.getAthlete();
+    private Athlete athlete ;
 
     public participationAthl(AthleteOlympicParticipation participation, Athlete athlete) {
         this.participation = participation;
@@ -23,5 +23,10 @@ public class participationAthl {
 
     public void setAthlete(Athlete athlete) {
         this.athlete = athlete;
+    }
+
+    public participationAthl(AthleteOlympicParticipation participation) {
+        this.participation = participation;
+        this.athlete = participation.getAthlete();
     }
 }

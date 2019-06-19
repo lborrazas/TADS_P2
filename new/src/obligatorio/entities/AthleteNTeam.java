@@ -12,6 +12,9 @@ public class AthleteNTeam {
         this.athlete = athlete;
     }
 
+    public AthleteNTeam(Athlete athlete) {
+        this.athlete = athlete;
+    }
 
     @Override
     public int hashCode() {

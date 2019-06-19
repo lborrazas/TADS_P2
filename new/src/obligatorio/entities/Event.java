@@ -19,4 +19,9 @@ public class Event {
     public void setSport(Sport sport) {
         this.sport = sport;
     }
+
+    public Event(String name, Sport sport) {
+        this.name = name;
+        this.sport = sport;
+    }
 }
