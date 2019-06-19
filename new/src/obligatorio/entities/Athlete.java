@@ -1,5 +1,7 @@
 package obligatorio.entities;
 
+import java.util.ArrayList;
+
 public class Athlete {
     private String name;
     private long id;
@@ -22,6 +24,7 @@ public class Athlete {
     private float weight;
     private Team team;
     private NationalOlympicCommittee region;
+    private ArrayList<AthleteOlympicParticipation> athleteOlympicParticipations;
 
     public NationalOlympicCommittee getRegion() {
         return region;
@@ -71,6 +74,17 @@ public class Athlete {
         this.team = team;
     }
 
+<<<<<<< HEAD
+    public void addParticipation(AthleteOlympicParticipation olympicParticipation){
+        athleteOlympicParticipations.add(olympicParticipation);
+    }
+
+    public ArrayList<AthleteOlympicParticipation> getAthleteOlympicParticipations() {
+        return athleteOlympicParticipations;
+    }
+
+    public Athlete(String name, long id, boolean sex, float weight, Team team, NationalOlympicCommittee region) {
+=======
     public int getAge() {
         return age;
     }
@@ -80,13 +94,19 @@ public class Athlete {
     }
 
     public Athlete(long id, String name, SexType sex, int age, float height, float weight, Team team, NationalOlympicCommittee region) {
+>>>>>>> 7a24b9f1a23539f626743829d3d7597c3fc5e307
         this.name = name;
         this.id = id;
         this.sex = sex;
         this.weight = weight;
         this.team = team;
         this.region = region;
+<<<<<<< HEAD
+        this.athleteOlympicParticipations = new ArrayList<AthleteOlympicParticipation>();
+
+=======
         this.height = height;
         this.age = age;
+>>>>>>> 7a24b9f1a23539f626743829d3d7597c3fc5e307
     }
 }
