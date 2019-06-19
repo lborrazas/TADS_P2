@@ -40,12 +40,12 @@ public class SeparateChainingHashTable<K> {
         LinkedList<K> elements = new LinkedList<>();
         for (int i=0; i<thisList.size(); i++){
             Node aux = thisList.get(i);
-            if (aux.key == key){
+            if (aux.key == key){   //ToDo Este es un filtro por HashVal, despues hay que hacer otro por key (Si sacamos este/?/)
                 elements.add((K) aux.object);
             }
         }
         return elements;
-    }
+}
 
     public void remove(K o){
         Node node = new Node(o);
