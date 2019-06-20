@@ -1,5 +1,6 @@
 package obligatorio.entities;
 
+import obligatorio.entities.enumerados.SeasonType;
 import tad.LinkedList;
 
 public class OlympicGame {

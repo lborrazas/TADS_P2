@@ -1,4 +1,7 @@
-package obligatorio.entities;
+package obligatorio.entities.nodos;
+
+import obligatorio.entities.Athlete;
+import obligatorio.entities.NationalOlympicCommittee;
 
 public class AthleteNRegion {
     private Athlete athlete;
@@ -18,6 +21,8 @@ public class AthleteNRegion {
 
     public int hashCode() {
       NationalOlympicCommittee aux = this.athlete.getRegion();
-      return aux.hashCode();
+      int hashVal =  aux.hashCode();
+      hashVal = hashVal + this.athlete.hashCode();
+      return hashVal;
     }
 }

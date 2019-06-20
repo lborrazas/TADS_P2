@@ -1,7 +1,6 @@
 package obligatorio;
 
-import obligatorio.entities.Athlete;
-import obligatorio.entities.MedalType;
+import obligatorio.entities.enumerados.MedalType;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -90,15 +89,19 @@ public class Menu{
                         switch (opcion3) {
                             case 0:
                                 System.out.println("Consideramos todas las medallas");
+                                consultas.consulta2(MedalType.Na);
                                 break;
                             case 1:
                                 System.out.println("Consideramos las de oro");
+                                consultas.consulta2(MedalType.Gold);
                                 break;
                             case 2:
                                 System.out.println("Consideramos las de plata");
+                                consultas.consulta2(MedalType.Silver);
                                 break;
                             case 3:
                                 System.out.println("Consideramos las de bronce");
+                                consultas.consulta2(MedalType.Bronze);
                                 break;
                             default:
                                 System.out.println("Error, ingrese una de las opciones");

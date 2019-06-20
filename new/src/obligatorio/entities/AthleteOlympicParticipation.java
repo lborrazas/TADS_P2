@@ -1,5 +1,7 @@
 package obligatorio.entities;
 
+import obligatorio.entities.enumerados.MedalType;
+
 public class AthleteOlympicParticipation {
     private MedalType medal;
     private Event event;

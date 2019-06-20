@@ -1,4 +1,4 @@
-package obligatorio.entities;
+package obligatorio.entities.enumerados;
 
 public enum SexType {
     FEMALE,

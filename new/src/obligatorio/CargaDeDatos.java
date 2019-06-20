@@ -1,6 +1,13 @@
 package obligatorio;
 
 import obligatorio.entities.*;
+import obligatorio.entities.enumerados.MedalType;
+import obligatorio.entities.enumerados.SeasonType;
+import obligatorio.entities.enumerados.SexType;
+import obligatorio.entities.nodos.AthleteNRegion;
+import obligatorio.entities.nodos.AthleteNTeam;
+import obligatorio.entities.nodos.ParticipationAthl;
+import obligatorio.entities.nodos.ParticipationOlympicGame;
 import tad.LinkedList;
 import tad.SeparateChainingHashTable;
 
@@ -9,15 +16,19 @@ import java.io.FileReader;
 import java.util.ArrayList;
 
 public class CargaDeDatos {
-    private LinkedList<NationalOlympicCommittee> committeeLinkedList = new LinkedList<>();
+    private ArrayList<NationalOlympicCommittee> regionsArrayList = new ArrayList<>(300);
     private SeparateChainingHashTable<NationalOlympicCommittee> committeHash = new SeparateChainingHashTable<>(11);
-//    private SeparateChainingHashTable<AthleteNRegion> athleteHashNOC = new SeparateChainingHashTable<>(250);
-//    private SeparateChainingHashTable<AthleteNTeam> athleteHashTEAM = new SeparateChainingHashTable<>(250);
+    private SeparateChainingHashTable<AthleteNRegion> athleteHashNOC = new SeparateChainingHashTable<>(150000);
+    //    private SeparateChainingHashTable<AthleteNTeam> athleteHashTEAM = new SeparateChainingHashTable<>(250);
     private SeparateChainingHashTable<ParticipationAthl> participationAthlete = new SeparateChainingHashTable<>(130000);
-   // private SeparateChainingHashTable<ParticipationOlympicGame> participationTeam = new SeparateChainingHashTable<>(100);
+    // private SeparateChainingHashTable<ParticipationOlympicGame> participationTeam = new SeparateChainingHashTable<>(100);
     private ArrayList<Athlete> athleteList = new ArrayList<>();
     private ArrayList<OlympicGame> olympicGameList = new ArrayList<>();
     private SeparateChainingHashTable<OlympicGame> olympicGameHash = new SeparateChainingHashTable<>(300);
+
+    public SeparateChainingHashTable<OlympicGame> getOlympicGameHash() {
+        return olympicGameHash;
+    }
 
     public void main() throws Exception { //orden de megas estamos bien
 
@@ -27,7 +38,7 @@ public class CargaDeDatos {
         double startTime = System.nanoTime();
         while ((line = br.readLine()) != null) {
             String[] values = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-            if (values[0].equals("SIN")){
+            if (values[0].equals("SIN")) {
                 values[0] = "SGP";
             }
             if (values.length == 2) {
@@ -47,8 +58,6 @@ public class CargaDeDatos {
         double endTime = System.nanoTime();
         System.out.println("Carga de Datos: " + (endTime - startTime) / 1000000000 + " s");
         br.close();
-
-
 
 
         String valueCeroPrev = null;
@@ -91,8 +100,8 @@ public class CargaDeDatos {
                 }
             }
 
-             team = new Team(values[6]);
-             auxNoc = new NationalOlympicCommittee(values[7], null); //ToDo sacar para afuera e inicalziar adentro
+            team = new Team(values[6]);
+            auxNoc = new NationalOlympicCommittee(values[7], null); //ToDo sacar para afuera e inicalziar adentro
 
 
             auxList = this.committeHash.getAsociatedElements(auxNoc.hashCode());
@@ -129,12 +138,12 @@ public class CargaDeDatos {
 
             if (!values[0].equals(valueCeroPrev)) {
                 this.athleteList.add(auxAthlete);
-//                this.athleteHashNOC.insert(athleteNRegion);
+                this.athleteHashNOC.insert(athleteNRegion);
 //                this.athleteHashTEAM.insert(athleteNTeam);
             }
 
             valueCeroPrev = values[0];
-             season = null;
+            season = null;
             if (values[10].equals("Winter")) {
                 season = SeasonType.Winter;
             } else if (values[10].equals("Summer")) {
@@ -147,7 +156,7 @@ public class CargaDeDatos {
 //            LinkedList<Event> eventsUno = new LinkedList<>();//ToDO hola
 //            eventsUno.add(event);
 
-           //olympicGameAux = new OlympicGame(values[8], Integer.parseInt(values[9]), season, city, eventsUno);
+            //olympicGameAux = new OlympicGame(values[8], Integer.parseInt(values[9]), season, city, eventsUno);
             olympicGameAux = new OlympicGame(values[8], Integer.parseInt(values[9]), season, city);
 
             // boolean agregado = false;
@@ -187,7 +196,7 @@ public class CargaDeDatos {
 
             if (!this.participationAthlete.contains(participationAthl)) {
                 this.participationAthlete.insert(participationAthl);
-              //  this.participationTeam.insert(participationOlympicGame);
+                //  this.participationTeam.insert(participationOlympicGame);
             }
 
 
@@ -199,13 +208,13 @@ public class CargaDeDatos {
 
     private NationalOlympicCommittee chargeListCommittee(String code, String country) {
         NationalOlympicCommittee temp = new NationalOlympicCommittee(code, country);
-        committeeLinkedList.add(temp);
+        regionsArrayList.add(temp);
         return temp;
     }
 
     private NationalOlympicCommittee chargeListCommittee(String code, String country, String notes) {
         NationalOlympicCommittee temp = new NationalOlympicCommittee(code, country, notes);
-        committeeLinkedList.add(temp);
+        regionsArrayList.add(temp);
         return temp;
     }
 
@@ -220,12 +229,12 @@ public class CargaDeDatos {
     }
 
 
-    public LinkedList<NationalOlympicCommittee> getCommitteeLinkedList() {
-        return committeeLinkedList;
+    public ArrayList<NationalOlympicCommittee> getRegionsArrayList() {
+        return regionsArrayList;
     }
 
-    public void setCommitteeLinkedList(LinkedList<NationalOlympicCommittee> committeeLinkedList) {
-        this.committeeLinkedList = committeeLinkedList;
+    public void setRegionsArrayList(ArrayList<NationalOlympicCommittee> regionsArrayList) {
+        this.regionsArrayList = regionsArrayList;
     }
 
     public SeparateChainingHashTable<NationalOlympicCommittee> getCommitteHash() {
@@ -236,7 +245,7 @@ public class CargaDeDatos {
         this.committeHash = committeHash;
     }
 
-/*    public SeparateChainingHashTable<AthleteNRegion> getAthleteHashNOC() {
+    public SeparateChainingHashTable<AthleteNRegion> getAthleteHashNOC() {
         return athleteHashNOC;
     }
 
@@ -244,13 +253,13 @@ public class CargaDeDatos {
         this.athleteHashNOC = athleteHashNOC;
     }
 
-    public SeparateChainingHashTable<AthleteNTeam> getAthleteHashTEAM() {
-        return athleteHashTEAM;
-    }
-
-    public void setAthleteHashTEAM(SeparateChainingHashTable<AthleteNTeam> athleteHashTEAM) {
-        this.athleteHashTEAM = athleteHashTEAM;*/
- //   }
+//    public SeparateChainingHashTable<AthleteNTeam> getAthleteHashTEAM() {
+//        return athleteHashTEAM;
+//    }
+//
+//    public void setAthleteHashTEAM(SeparateChainingHashTable<AthleteNTeam> athleteHashTEAM) {
+//        this.athleteHashTEAM = athleteHashTEAM;*/
+//   }
 
     public SeparateChainingHashTable<ParticipationAthl> getParticipationAthlete() {
         return participationAthlete;

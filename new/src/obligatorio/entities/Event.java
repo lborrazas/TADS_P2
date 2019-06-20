@@ -20,11 +20,21 @@ public class Event {
         this.sport = sport;
     }
 
+    private boolean checked;
+
     public Event(String name, Sport sport) {
         this.name = name;
         this.sport = sport;
+        this.checked = false;
     }
 
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
 
     public boolean equals(Object obj) {
         boolean bool = false;

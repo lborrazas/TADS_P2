@@ -1,4 +1,6 @@
-package obligatorio.entities;
+package obligatorio.entities.nodos;
+
+import obligatorio.entities.AthleteOlympicParticipation;
 
 public class ParticipationOlympicGame {
     private AthleteOlympicParticipation participation;

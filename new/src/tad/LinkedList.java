@@ -62,6 +62,9 @@ public class LinkedList<R> implements MyList<R> {
                 }
                 nodeNoNext = nodeNoNext.getNext();
             }
+            if(nodeNoNext.getValue().equals(element)){
+                found = true;
+            }
         }
         return found;
     }
@@ -82,6 +85,9 @@ public class LinkedList<R> implements MyList<R> {
                     break;
                 }
                 nodeNoNext = nodeNoNext.getNext();
+            }
+            if(nodeNoNext.getValue().equals(element)){
+                found = nodeNoNext.getValue();
             }
         }
         return found;

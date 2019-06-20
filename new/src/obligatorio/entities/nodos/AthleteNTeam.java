@@ -1,4 +1,7 @@
-package obligatorio.entities;
+package obligatorio.entities.nodos;
+
+import obligatorio.entities.Athlete;
+import obligatorio.entities.Team;
 
 public class AthleteNTeam {
     private Athlete athlete;
@@ -18,7 +21,7 @@ public class AthleteNTeam {
 
     @Override
     public int hashCode() {
-      Team  aux = this.athlete.getTeam();
+      Team aux = this.athlete.getTeam();
       return aux.hashCode();
     }
 }

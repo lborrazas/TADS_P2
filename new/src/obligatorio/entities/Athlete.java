@@ -1,12 +1,14 @@
 package obligatorio.entities;
 
+import obligatorio.entities.enumerados.SexType;
+
 import java.util.ArrayList;
 
 public class Athlete {
-    int gCount;
-    int sCount;
-    int bCount;
-    int total;
+    private int gCount;
+    private int sCount;
+    private int bCount;
+    private int total;
     private String name;
     private long id;
     private SexType sex;
