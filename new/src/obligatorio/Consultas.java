@@ -113,38 +113,40 @@ public class Consultas {
             }
 
             ArrayList<AthleteOlympicParticipation> participations = athlete.getAthleteOlympicParticipations();
+            Event event;
             for (int k = 0; k < athlete.getAthleteOlympicParticipations().size(); k++) {
                 AthleteOlympicParticipation participation = participations.get(k);
                 MedalType medal = participation.getMedal();
-                Event event = this.olympicGameHash.get(participation.getOlympicGame()).getEvents().get(participation.getEvent());
+                 event = participation.getEvent();
+                //Event event = this.olympicGameHash.get(participation.getOlympicGame()).getEvents().get(participation.getEvent());
                 switch (medal) {
                     case Gold: {
                         athlete.addGcount();
-                        athlete.getRegion().addGcount();
-                      /*  if (!event.isChecked()) {
+                       // athlete.getRegion().addGcount();
+                       if (!event.isChecked()) {
                             athlete.getRegion().addGcount();
                             event.setChecked(true);
-                        }*/
+                        }
 
                         break;
                     }
                     case Silver: {
                         athlete.addScount();
-                        athlete.getRegion().addScount();
-                       /* if (!event.isChecked()) {
+                      //  athlete.getRegion().addScount();
+                        if (!event.isChecked()) {
                             athlete.getRegion().addScount();
                             event.setChecked(true);
-                        }*/
+                        }
 
                         break;
                     }
                     case Bronze: {
                         athlete.addBcount();
-                        athlete.getRegion().addBcount();
-                       /* if (!event.isChecked()) {
+                       // athlete.getRegion().addBcount();
+                       if (!event.isChecked()) {
                             athlete.getRegion().addBcount();
                             event.setChecked(true);
-                        }*/
+                        }
                         break;
                     }
 
@@ -157,7 +159,7 @@ public class Consultas {
 
         for (int i = 0; i < regions.size(); i++) {
             System.out.println(i);
-            NationalOlympicCommittee region = regionHash.get(regions.get(i));
+            NationalOlympicCommittee region =regions.get(i);
             Integer count;
             switch (medalsToCount) {
                 case Na:

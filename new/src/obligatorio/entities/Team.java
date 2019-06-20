@@ -22,4 +22,8 @@ public class Team {
         return hashVal;
     }
 
+    public boolean equals(Object obj) {
+        Team team = (Team)obj;
+        return this.name.equals(team.name);
+    }
 }
