@@ -3,6 +3,8 @@ package obligatorio.entities;
 public class Event {
     private String name;
     private Sport sport;
+    private int nrodeF;
+    private int nrodeM;
 
     public String getName() {
         return name;
@@ -26,6 +28,24 @@ public class Event {
         this.name = name;
         this.sport = sport;
         this.checked = false;
+        this.nrodeF = 0;
+        this.nrodeM = 0;
+    }
+
+    public int getNrodeF() {
+        return nrodeF;
+    }
+
+    public void setNrodeF(int nrodeF) {
+        this.nrodeF = nrodeF;
+    }
+
+    public int getNrodeM() {
+        return nrodeM;
+    }
+
+    public void setNrodeM(int nrodeM) {
+        this.nrodeM = nrodeM;
     }
 
     public boolean isChecked() {

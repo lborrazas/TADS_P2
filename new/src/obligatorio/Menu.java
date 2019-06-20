@@ -110,6 +110,7 @@ public class Menu{
                     case 3:
                         System.out.println("top 10 de ediciones de los juegos olímpicos donde se tuvo mayor participación de atletas femeninos.");
                         System.out.println("Datos esperados del resultado: nombre edición, año, cantidad de atletas.");
+                        consultas.consulta3();
                         break;
                     case 4:
                         System.out.println(" 5 competiciones donde se presentan la mayor cantidad de atletas de cierto sexo.");
@@ -118,22 +119,25 @@ public class Menu{
                         //sexo = sn.nextInt();
                         boolean salida = false;
                         while (!salida){
-                        System.out.println("Ingrese 1 o 2 unicamente");
-                        sexo = sn.nextInt();
+                            System.out.println("Ingrese 1 o 2 unicamente");
+                            sexo = sn.nextInt();
 
-                        if (sexo == 1) {
-                              salida =true;
-                            System.out.println("consulta de femenino");
+                            if (sexo == 1) {
+                                //  salida =true;
+                                System.out.println("consulta de femenino");
+                                consultas.consulta4();
+                                salida =true;
                             } else {
-                            salida = true;
-                            System.out.println("consulta de masculino");
-                    }
-                    }
+                                salida = true;
+                                System.out.println("consulta de masculino");
+                            }
+                        }
                         break;
                     case 5:
                         System.out.println("Indicar los 5 equipos mas efectivos entre un rango de años (especificadas al ejecutar el reporte).");
                         System.out.println("Con efectividad se refiere aquellos donde la relación entre competidores y medallas obtenidas obtiene los valores mas altos.");
                         System.out.println("Datos esperados del resultado: Nombre del equipo, cantidad de competidores, medallas obtenidas.");
+                        consultas.consulta5();
                         break;
                     case 6:
                         System.out.println("Gracias por venir, vuelva pronto!");

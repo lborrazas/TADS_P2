@@ -37,7 +37,6 @@ public class CargaDeDatos {
     public void main() throws Exception { //orden de megas estamos bien
 
         BufferedReader br = new BufferedReader(new FileReader("resources/noc_regions.csv"));
-        //CargaDeDatos this = new CargaDeDatos();
         String line = null;
         double startTime = System.nanoTime();
         while ((line = br.readLine()) != null) {
@@ -46,19 +45,15 @@ public class CargaDeDatos {
                 values[0] = "SGP";
             }
             if (values.length == 2) {
-                NationalOlympicCommittee region = new NationalOlympicCommittee(values[0],values[1]);
+                NationalOlympicCommittee region = new NationalOlympicCommittee(values[0], values[1]);
                 regionsArrayList.add(region);
                 committeHash.insert(region);
 
-            //    this.chargeListCommittee(values[0], values[1]);
-            //    this.chargeHashCommittee(values[0], values[1]);
             } else if (values.length == 3) {
 
-                NationalOlympicCommittee region = new NationalOlympicCommittee(values[0],values[1],values[2]);
+                NationalOlympicCommittee region = new NationalOlympicCommittee(values[0], values[1], values[2]);
                 regionsArrayList.add(region);
                 committeHash.insert(region);
-                //this.chargeHashCommittee(values[0], values[1], values[2]);
-                //this.chargeListCommittee(values[0], values[1], values[2]);
             }
         }
         System.out.println(this.committeHash.getCurrentSize());
@@ -111,9 +106,9 @@ public class CargaDeDatos {
             }
 
             team = new Team(values[6]);
-            if(teamHash.contains(team)){
+            if (teamHash.contains(team)) {
                 team = teamHash.get(team);
-            }else{
+            } else {
                 teamHash.insert(team);
             }
 
@@ -151,7 +146,7 @@ public class CargaDeDatos {
                 this.athleteList.add(auxAthlete);
                 this.athleteHashNOC.insert(athleteNRegion);
 //              this.athleteHashTEAM.insert(athleteNTeam);
-            }else{
+            } else {
                 auxAthlete = this.athelteHash.get(auxAthlete);
             }
 
@@ -165,48 +160,33 @@ public class CargaDeDatos {
             }
 
             city = new City(values[11]);
-            if(cityHash.contains(city)){
+            if (cityHash.contains(city)) {
                 city = cityHash.get(city);
-            }else{
+            } else {
                 cityHash.insert(city);
             }
             sport = new Sport(values[12]);
-            if(sportHash.contains(sport)){
+            if (sportHash.contains(sport)) {
                 sport = sportHash.get(sport);
-            }else{
+            } else {
                 sportHash.insert(sport);
             }
 
             event = new Event(values[13], sport);
-//            LinkedList<Event> eventsUno = new LinkedList<>();//ToDO hola
-//            eventsUno.add(event);
 
-            //olympicGameAux = new OlympicGame(values[8], Integer.parseInt(values[9]), season, city, eventsUno);
             olympicGameAux = new OlympicGame(values[8], Integer.parseInt(values[9]), season, city);
 
-            // boolean agregado = false;
             if (this.olympicGameHash.contains(olympicGameAux)) {
                 olympicGameAux = this.olympicGameHash.get(olympicGameAux);
                 if (!olympicGameAux.getEvents().contains(event)) {
                     olympicGameAux.getEvents().add(event);
-                }else{
+                } else {
                     event = olympicGameAux.getEvents().get(event);
                 }
             } else {
                 olympicGameAux.getEvents().add(event);
                 this.olympicGameHash.insert(olympicGameAux);
             }
-
-//            for (int i = 0 ; i < this.olympicGameList.size() ; i++){
-//                OlympicGame auxI = this.olympicGameList.get(i);
-//                if (auxI.equals(olympicGameAux)){
-//                    auxI.getEvents().add(event);
-//                    agregado = true;
-//                }
-//            }
-//            if (!agregado){
-//                this.olympicGameList.add(olympicGameAux);
-//            }
 
 
             if (values[14].equals("Bronze")) {
@@ -234,51 +214,18 @@ public class CargaDeDatos {
 
     }
 
-    private NationalOlympicCommittee chargeListCommittee(String code, String country) {
-        NationalOlympicCommittee temp = new NationalOlympicCommittee(code, country);
-        regionsArrayList.add(temp);
-        return temp;
-    }
-
-    private NationalOlympicCommittee chargeListCommittee(String code, String country, String notes) {
-        NationalOlympicCommittee temp = new NationalOlympicCommittee(code, country, notes);
-        regionsArrayList.add(temp);
-        return temp;
-    }
-
-    private void chargeHashCommittee(String code, String country) {
-        NationalOlympicCommittee temp = new NationalOlympicCommittee(code, country);
-        committeHash.insert(temp);
-    }
-
-    private void chargeHashCommittee(String code, String country, String notes) {
-        NationalOlympicCommittee temp = new NationalOlympicCommittee(code, country, notes);
-        committeHash.insert(temp);
-    }
-
-
     public ArrayList<NationalOlympicCommittee> getRegionsArrayList() {
         return regionsArrayList;
     }
 
-    public void setRegionsArrayList(ArrayList<NationalOlympicCommittee> regionsArrayList) {
-        this.regionsArrayList = regionsArrayList;
-    }
 
     public SeparateChainingHashTable<NationalOlympicCommittee> getCommitteHash() {
         return committeHash;
     }
 
-    public void setCommitteHash(SeparateChainingHashTable<NationalOlympicCommittee> committeHash) {
-        this.committeHash = committeHash;
-    }
 
     public SeparateChainingHashTable<AthleteNRegion> getAthleteHashNOC() {
         return athleteHashNOC;
-    }
-
-    public void setAthleteHashNOC(SeparateChainingHashTable<AthleteNRegion> athleteHashNOC) {
-        this.athleteHashNOC = athleteHashNOC;
     }
 
 //    public SeparateChainingHashTable<AthleteNTeam> getAthleteHashTEAM() {
@@ -293,9 +240,6 @@ public class CargaDeDatos {
         return participationAthlete;
     }
 
-    public void setParticipationAthlete(SeparateChainingHashTable<ParticipationAthl> participationAthlete) {
-        this.participationAthlete = participationAthlete;
-    }
 
 //    public SeparateChainingHashTable<ParticipationOlympicGame> getParticipationTeam() {
 //        return participationTeam;
@@ -309,15 +253,10 @@ public class CargaDeDatos {
         return athleteList;
     }
 
-    public void setAthleteList(ArrayList<Athlete> athleteList) {
-        this.athleteList = athleteList;
-    }
 
     public ArrayList<OlympicGame> getOlympicGameList() {
         return olympicGameList;
     }
 
-    public void setOlympicGameList(ArrayList<OlympicGame> olympicGameList) {
-        this.olympicGameList = olympicGameList;
-    }
+
 }

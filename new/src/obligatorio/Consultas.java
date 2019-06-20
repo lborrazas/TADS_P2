@@ -19,6 +19,7 @@ public class Consultas {
     ArrayList<NationalOlympicCommittee> regions;
     SeparateChainingHashTable<NationalOlympicCommittee> regionHash;
     SeparateChainingHashTable<OlympicGame> olympicGameHash;
+    MinHeap<Integer, Athlete> minHeap;
 
     public Consultas(CargaDeDatos cdd) {
         this.cdd = cdd;
@@ -29,9 +30,10 @@ public class Consultas {
         regionMinHeap = new MinHeap<>(300);
         regionHash = cdd.getCommitteHash();
         this.olympicGameHash = cdd.getOlympicGameHash();
+        minHeap = new MinHeap<>(150000);
     }
 
-    public Athlete[] consulta1(MedalType medalsToCount) {
+    public void consulta1(MedalType medalsToCount) {
         athleteMinHeap.makeEmpty();
 
         for (int i = 0; i < athletes.size(); i++) {
@@ -95,10 +97,9 @@ public class Consultas {
             System.out.println(athlete.getName());
 
         }
-        return null;
     }
 
-    public Athlete[] consulta2(MedalType medalsToCount) {
+    public void consulta2(MedalType medalsToCount) {
         regionMinHeap.makeEmpty();
         for (int i = 0; i < athletes.size(); i++) {
             Athlete athlete = athletes.get(i);
@@ -187,13 +188,56 @@ public class Consultas {
             System.out.println(region.getPais());
 
         }
-        return null;
-
     }
 
-    public Athlete[] consulta3() {
+    public Athlete[] consulta3(){
+        LinkedList<OlympicGame> juegos =new LinkedList<>();
+        minHeap.makeEmpty();
+        MinHeap heap = new MinHeap(15000);
+        for (int i = 0; i < athletes.size(); i++) {
+            Athlete athlete = athletes.get(i);
+            LinkedList<ParticipationAthl> partAthl = participations.getAsociatedElements(athletes.get(i).hashCode());
 
-        LinkedList<OlympicGame> juegos = null;
+            for (int j = 0; j < partAthl.size(); j++) {
+                AthleteOlympicParticipation participation =partAthl.get(j).getParticipation();
+                if (participation.getAthlete().equals(athlete)){
+                    athlete.addParticipation(participation);
+                }
+            }
+            ArrayList<AthleteOlympicParticipation> participations = athlete.getAthleteOlympicParticipations();
+            OlympicGame juego;
+            for(int k=0; k<athlete.getAthleteOlympicParticipations().size(); k++){
+                juego = athlete.getAthleteOlympicParticipations().get(k).getOlympicGame();
+                if (!juegos.contains(juego)){
+                    juegos.add(juego);
+                    if (athlete.getSex() == SexType.FEMALE) {
+                        juego.setNrodeF(juego.getNrodeF() + 1);
+                    } else if (athlete.getSex() == SexType.MALE){
+                        juego.setNrodeM(juego.getNrodeM()+1);
+                    }
+                } else {
+                    if (athlete.getSex() == SexType.FEMALE) {
+                        juego.setNrodeF(juego.getNrodeF() + 1);
+                    } else {
+                        juego.setNrodeM(juego.getNrodeM() + 1);
+                    }
+                }
+            }
+        }
+        for (int j = 0 ; j < juegos.size() ; j++){
+            heap.insert(-juegos.get(j).getNrodeF(), juegos.get(j).getName());
+        }
+        for (int t = 0 ; t< 10; t++){
+            System.out.println(heap.deleteMin());
+        }
+        return null;
+    }
+
+    public Athlete [] consulta4() {
+        LinkedList<OlympicGame> juegos = new LinkedList<>();
+        minHeap.makeEmpty();
+        LinkedList<Event> eventos = new LinkedList<>();
+        MinHeap heap = new MinHeap(15000);
         for (int i = 0; i < athletes.size(); i++) {
             Athlete athlete = athletes.get(i);
             LinkedList<ParticipationAthl> partAthl = participations.getAsociatedElements(athletes.get(i).hashCode());
@@ -210,16 +254,82 @@ public class Consultas {
                 juego = athlete.getAthleteOlympicParticipations().get(k).getOlympicGame();
                 if (!juegos.contains(juego)) {
                     juegos.add(juego);
-                    if (athlete.getSex() == SexType.FEMALE) {
-                        juego.setNrodeF(juego.getNrodeF() + 1);
-                    }
-                } else {
-                    if (athlete.getSex() == SexType.FEMALE) {
-                        juego.setNrodeF(juego.getNrodeF() + 1);
-                    }
                 }
             }
+            for (int t = 0 ; t < juegos.size() ; t++){
+                for (int r = 0; r < juegos.get(t).getEvents().size()-1; r++){
+                    if (!eventos.contains(juegos.get(t).getEvents().get(r))){
+                        eventos.add(juegos.get(t).getEvents().get(r));
+                    }
+                    // System.out.println(eventos.get(r).getName());
+                    if (athlete.getSex() == SexType.FEMALE){
+                        eventos.get(r).setNrodeF(eventos.get(r).getNrodeF()+1);
+                        // eventos.get(juegos.get(t).getEvents().get(r)).setNrodeF(eventos.get(juegos.get(t).getEvents().get(r)).getNrodeF()+1);
+                    } else {
+                        eventos.get(r).setNrodeM(eventos.get(r).getNrodeM()+1);
+                        //eventos.get(juegos.get(t).getEvents().get(r)).setNrodeM(eventos.get(juegos.get(t).getEvents().get(r)).getNrodeM()+1);
+                    }
+                }
+
+            }
+            System.out.println("je");
         }
+        System.out.println(eventos.size());
+        for(int k = 0 ; k < eventos.size() ; k++){
+            heap.insert(-eventos.get(k).getNrodeF(),eventos.get(k));
+        }
+        System.out.println(heap.getSize());
+        for (int i = 0 ; i < 10 ; i++){
+            System.out.println(heap.deleteMin());
+        }
+        System.out.println("tamo");
         return null;
     }
+
+    public void consulta5(){
+        LinkedList<OlympicGame> juegos = new LinkedList<>();
+        minHeap.makeEmpty();
+        LinkedList<Event> eventos = new LinkedList<>();
+        MinHeap heap = new MinHeap(15000);
+        LinkedList<Team> teams = new LinkedList<>();
+        float efectividad = 0;
+        System.out.println(athletes.size());
+        for (int i = 0; i < athletes.size(); i++) {
+            Athlete athlete = athletes.get(i);
+            LinkedList<ParticipationAthl> partAthl = participations.getAsociatedElements(athletes.get(i).hashCode());
+
+            for (int j = 0; j < partAthl.size(); j++) {
+                AthleteOlympicParticipation participation = partAthl.get(j).getParticipation();
+                if (participation.getAthlete().equals(athlete)) {
+                    athlete.addParticipation(participation);
+                }
+            }
+            //   ArrayList<AthleteOlympicParticipation> participations = athlete.getAthleteOlympicParticipations();
+            Team team;
+            //  System.out.println(athlete.getAthleteOlympicParticipations().size());
+            for (int k = 0; k < athlete.getAthleteOlympicParticipations().size(); k++) {
+                team = athlete.getAthleteOlympicParticipations().get(k).getAthlete().getTeam();
+                if (!teams.contains(team)) {
+                    teams.add(team);
+                }
+                team.setCompetidores(team.getCompetidores()+1);
+            }
+            System.out.println(teams.size());
+            for (int t = 0; t < teams.size(); t++){
+                team = teams.get(t);
+                team.setMedals(team.getMedals()+athlete.getTotal());
+                team.setEfectividad(team.getMedals()/team.getCompetidores());
+            }
+
+            //   System.out.println("je");
+        }
+        for (int j = 0 ; j < teams.size(); j++){
+            heap.insert(-teams.get(j).getEfectividad(),teams.get(j).getName());
+        }
+        for (int k = 0; k < 5 ; k++){
+            System.out.println(heap.deleteMin());
+        }
+
+    }
+
 }
