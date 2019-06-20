@@ -17,6 +17,9 @@ public class OlympicGame {
         this.season = season;
         this.city = city;
         this.events = events;
+        this.nrodeF = 0;
+        this.nrodeM = 0;
+
     }
 
     public OlympicGame(String name, int year, SeasonType season, City city) {
@@ -24,6 +27,7 @@ public class OlympicGame {
         this.year = year;
         this.season = season;
         this.city = city;
+        this.events = new LinkedList<>();
         this.nrodeF = 0;
         this.nrodeM = 0;
 

@@ -147,7 +147,7 @@ public class CargaDeDatos {
 //            LinkedList<Event> eventsUno = new LinkedList<>();//ToDO hola
 //            eventsUno.add(event);
 
-       //     OlympicGame olympicGameAux = new OlympicGame(values[8], Integer.parseInt(values[9]), season, city, eventsUno);
+           //olympicGameAux = new OlympicGame(values[8], Integer.parseInt(values[9]), season, city, eventsUno);
             olympicGameAux = new OlympicGame(values[8], Integer.parseInt(values[9]), season, city);
 
             // boolean agregado = false;
