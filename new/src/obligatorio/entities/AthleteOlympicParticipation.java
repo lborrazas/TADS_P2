@@ -44,4 +44,18 @@ public class AthleteOlympicParticipation {
         this.olympicGame = olympicGame;
         this.athlete = athlete;
     }
+
+
+    public boolean equals(Object obj) {
+        boolean bool = false;
+        AthleteOlympicParticipation aux = (AthleteOlympicParticipation) obj;
+        if(this.athlete.equals(aux.athlete)){
+            if (this.event.equals(aux.event)){
+                if(this.olympicGame.equals(aux.olympicGame)){
+                    bool = true;
+                }
+            }
+        }
+        return bool;
+    }
 }

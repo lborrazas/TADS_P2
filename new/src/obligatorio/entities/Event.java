@@ -24,4 +24,14 @@ public class Event {
         this.name = name;
         this.sport = sport;
     }
+
+
+    public boolean equals(Object obj) {
+        boolean bool = false;
+        Event aux = (Event) obj;
+        if(this.name.equals(aux.name)){
+            bool = true;
+        }
+        return bool;
+    }
 }

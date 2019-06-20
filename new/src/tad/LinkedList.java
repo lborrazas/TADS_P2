@@ -66,6 +66,27 @@ public class LinkedList<R> implements MyList<R> {
         return found;
     }
 
+
+    public R get(R element) { // TODO CHECKER...
+        R found = null;
+        Node<R> nodeNoNext = first; //We never checked this first case (amazing)
+        if (first != null) {
+            if(first.getValue().equals(element))return first.getValue();
+            if (nodeNoNext.getValue().equals(element)) {
+                return nodeNoNext.getValue();
+            }
+
+            if (first.getNext() != null) while (nodeNoNext.getNext() != null) {
+                if (nodeNoNext.getValue().equals(element)) {
+                    found = nodeNoNext.getValue();
+                    break;
+                }
+                nodeNoNext = nodeNoNext.getNext();
+            }
+        }
+        return found;
+    }
+
     public void remove(R element) { //TODO CHECKER...
         Node<R> nodeToLast = first;
         if (first.getValue().equals(element)) {

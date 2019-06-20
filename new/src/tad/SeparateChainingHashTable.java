@@ -26,6 +26,14 @@ public class SeparateChainingHashTable<K> {
         return bool;
     }
 
+    public K get(K o){
+        K lookingFor;
+        Node node = new Node(o);
+        LinkedList<Node> thisList = theLists[myHash(o.hashCode())];
+        lookingFor = (K) thisList.get(node).object;
+        return lookingFor;
+    }
+
     public void insert(K o) {
         Node node = new Node(o);
         LinkedList<Node> thisList = theLists[myHash(node.key)];
@@ -74,7 +82,7 @@ public class SeparateChainingHashTable<K> {
         public boolean equals(Object node) {
             if (node instanceof Node){
                 Node temp = (Node) node;
-                return this.key == temp.key;
+                return this.object.equals(temp.object);
             }
             return false;
         }

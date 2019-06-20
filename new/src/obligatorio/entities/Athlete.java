@@ -101,18 +101,18 @@ public class Athlete {
     }
 
     public void addGcount() {
-        this.gCount = gCount++;
-        this.total = total++;
+        this.gCount++;
+        this.total++;
     }
 
     public void addScount() {
-        this.sCount = sCount++;
-        this.total = total++;
+        this.sCount++;
+        this.total++;
     }
 
     public void addBcount() {
-        this.bCount = bCount++;
-        this.total = total++;
+        this.bCount++;
+        this.total++;
     }
 
     public ArrayList<AthleteOlympicParticipation> getAthleteOlympicParticipations() {
@@ -141,5 +141,27 @@ public class Athlete {
 
     public int getTotal() {
         return total;
+    }
+
+
+    public int hashCode() {
+        return (int)id;
+    }
+
+
+    public boolean equals(Object obj) {
+       boolean bool = false;
+       Athlete aux = (Athlete)obj;
+       if (this.id == aux.getId()){
+           bool = true;
+       }
+       return bool;
+    }
+
+    public void resetMedals(){
+        this.sCount = 0;
+        this.bCount = 0;
+        this.gCount = 0;
+        this.total =0;
     }
 }

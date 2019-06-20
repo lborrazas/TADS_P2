@@ -7,7 +7,27 @@ public class OlympicGame {
     private int year;
     private SeasonType season;
     private City city;
-    private LinkedList<Event> events ;
+    private LinkedList<Event> events;
+    private int nrodeF;
+    private int nrodeM;
+
+    public OlympicGame(String name, int year, SeasonType season, City city, LinkedList<Event> events) {
+        this.name = name;
+        this.year = year;
+        this.season = season;
+        this.city = city;
+        this.events = events;
+    }
+
+    public OlympicGame(String name, int year, SeasonType season, City city) {
+        this.name = name;
+        this.year = year;
+        this.season = season;
+        this.city = city;
+        this.nrodeF = 0;
+        this.nrodeM = 0;
+
+    }
 
     public LinkedList<Event> getEvents() {
         return events;
@@ -45,35 +65,41 @@ public class OlympicGame {
         return season;
     }
 
-    public void setSeason(SeasonType season) {
-        this.season = season;
+    public int getNrodeF() {
+        return nrodeF;
     }
 
-    public OlympicGame(String name, int year, SeasonType season, City city, LinkedList<Event> events) {
-        this.name = name;
-        this.year = year;
-        this.season = season;
-        this.city = city;
-        this.events = events;
+    public void setNrodeF(int nrodeF) {
+        this.nrodeF = nrodeF;
     }
 
-    public OlympicGame(String name, int year, SeasonType season, City city) {
-        this.name = name;
-        this.year = year;
-        this.season = season;
-        this.city = city;
-        this.events = null;
+    public int getNrodeM() {
+        return nrodeM;
     }
 
+    public void setNrodeM(int nrodeM) {
+        this.nrodeM = nrodeM;
+    }
 
     public SeasonType getSeason() {
         return season;
     }
 
-    public boolean equals(OlympicGame olympicGame) {
-        if (olympicGame.getName().equals(this.name) ){
-            return true;
+    public void setSeason(SeasonType season) {
+        this.season = season;
+    }
+
+    public boolean equals(Object obj) {
+        OlympicGame aux = (OlympicGame) obj;
+        return this.name.equals(aux.name);
+    }
+
+    public int hashCode() {
+        String s = name;
+        int hashVal = 7;
+        for (int i = 0; i < s.length(); i = i + 2) {
+            hashVal = hashVal * 31 + s.charAt(i);
         }
-        return false;
+        return hashVal;
     }
 }

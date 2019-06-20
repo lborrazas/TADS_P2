@@ -2,11 +2,9 @@ package obligatorio.entities;
 
 public class ParticipationAthl {
     private AthleteOlympicParticipation participation;
-    private Athlete athlete ;
 
-    public ParticipationAthl(AthleteOlympicParticipation participation, Athlete athlete) {
+    public ParticipationAthl(AthleteOlympicParticipation participation) {
         this.participation = participation;
-        this.athlete = athlete;
     }
 
     public AthleteOlympicParticipation getParticipation() {
@@ -17,16 +15,13 @@ public class ParticipationAthl {
         this.participation = participation;
     }
 
-    public Athlete getAthlete() {
-        return athlete;
+    public int hashCode() {
+        return this.participation.getAthlete().hashCode();
     }
 
-    public void setAthlete(Athlete athlete) {
-        this.athlete = athlete;
-    }
 
-    public ParticipationAthl(AthleteOlympicParticipation participation) {
-        this.participation = participation;
-        this.athlete = participation.getAthlete();
+    public boolean equals(Object obj) {
+        ParticipationAthl aux = (ParticipationAthl)obj;
+        return this.participation.equals(aux.participation);
     }
 }

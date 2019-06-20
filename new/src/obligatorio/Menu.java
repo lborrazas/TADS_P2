@@ -1,6 +1,7 @@
 package obligatorio;
 
 import obligatorio.entities.Athlete;
+import obligatorio.entities.MedalType;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -57,19 +58,22 @@ public class Menu{
                             case 0:
                                 System.out.println("Consideramos todas las medallas");
                                  // Athlete []  top10 = consultas.consulta1();
-                                consultas.consulta1();
+                                consultas.consulta1(MedalType.Na);
 //                                for (int i = 0; i <top10.length; i++){
 //                                    System.out.println(top10[i]);
 //                                }
                                 break;
                             case 1:
                                 System.out.println("Consideramos las de oro");
+                                consultas.consulta1(MedalType.Gold);
                                 break;
                             case 2:
                                 System.out.println("Consideramos las de plata");
+                                consultas.consulta1(MedalType.Silver);
                                 break;
                             case 3:
                                 System.out.println("Consideramos las de bronce");
+                                consultas.consulta1(MedalType.Bronze);
                                 break;
                             default:
                                 System.out.println("Error, ingrese una de las opciones");
