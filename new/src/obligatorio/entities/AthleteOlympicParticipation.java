@@ -7,6 +7,15 @@ public class AthleteOlympicParticipation {
     private Event event;
     private OlympicGame olympicGame;
     private Athlete athlete;
+    private Team team;
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
 
     public MedalType getMedal() {
         return medal;
@@ -40,11 +49,12 @@ public class AthleteOlympicParticipation {
         this.athlete = athlete;
     }
 
-    public AthleteOlympicParticipation(MedalType medal, Event event, OlympicGame olympicGame, Athlete athlete) {
+    public AthleteOlympicParticipation(MedalType medal, Event event, OlympicGame olympicGame, Athlete athlete, Team team) {
         this.medal = medal;
         this.event = event;
         this.olympicGame = olympicGame;
         this.athlete = athlete;
+        this.team = team;
     }
 
 

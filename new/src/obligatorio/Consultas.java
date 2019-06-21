@@ -23,7 +23,7 @@ public class Consultas {
     ArrayList<AthleteOlympicParticipation> participationArrayList;
     ArrayList<Event> events;
     MinHeap<Integer, Event> eventHeap;
-    MinHeap<Float,Team> teamsHeap;
+    MinHeap<Float, Team> teamsHeap;
     ArrayList<Team> teams;
     ArrayList<OlympicGame> olympicGames;
 
@@ -43,7 +43,6 @@ public class Consultas {
         teamsHeap = new MinHeap<>(10000);
         teams = cdd.getTeams();
         olympicGames = cdd.getOlympicGameList();
-
 
 
     }
@@ -111,18 +110,18 @@ public class Consultas {
         int aMax = 0;
         ArrayList<AthleteOlympicParticipation> auxParts;
         for (int k = 0; k < 10; k++) {
-              Athlete athlete = athleteMinHeap.deleteMin();
-              auxParts = athlete.getAthleteOlympicParticipations();
-          for(int l = 0; l<auxParts.size(); l++){
-              AthleteOlympicParticipation participation = auxParts.get(l);
-              if(participation.getOlympicGame().getYear()<aMin){
-                  aMin = participation.getOlympicGame().getYear();
-              }
-              if(participation.getOlympicGame().getYear()>aMax){
-                  aMax = participation.getOlympicGame().getYear();
-              }
-          }
-            System.out.println(athlete.getName() + " "+ athlete.getSex() + " "+ athlete.getTotal());
+            Athlete athlete = athleteMinHeap.deleteMin();
+            auxParts = athlete.getAthleteOlympicParticipations();
+            for (int l = 0; l < auxParts.size(); l++) {
+                AthleteOlympicParticipation participation = auxParts.get(l);
+                if (participation.getOlympicGame().getYear() < aMin) {
+                    aMin = participation.getOlympicGame().getYear();
+                }
+                if (participation.getOlympicGame().getYear() > aMax) {
+                    aMax = participation.getOlympicGame().getYear();
+                }
+            }
+            System.out.println(athlete.getName() + " " + athlete.getSex() + " " + athlete.getTotal());
         }
         System.out.println("Año minimo: " + aMin + " Año Maximo: " + aMax);
 
@@ -248,7 +247,7 @@ public class Consultas {
     }
 
     public void consulta4(SexType sexType) {
-        for(int i=0;i<events.size();i++)events.get(i).resetCounts();
+        for (int i = 0; i < events.size(); i++) events.get(i).resetCounts();
 
         for (int i = 0; i < athletes.size(); i++) {
             Athlete athlete = athletes.get(i);
@@ -315,11 +314,17 @@ public class Consultas {
         Team team;
         for (int i = 0; i < teams.size(); i++) teams.get(i).reset();
 
-        for (int i = 0; i < athletes.size(); i++) {
-            Athlete athlete = athletes.get(i);
-            athlete.getTeam().addCompetidor();
+        for (int i = 0; i < participationArrayList.size(); i++) {
+            team = participationArrayList.get(i).getTeam();
+            team.addCompetidor();
+        }
 
-            LinkedList<ParticipationAthl> participationsforAthlete = participations.getAsociatedElements(athletes.get(i).hashCode());
+        for (int z = 0; z < athletes.size(); z++) {
+            Athlete athlete = athletes.get(z);
+            athlete.resetMedals();
+
+
+            LinkedList<ParticipationAthl> participationsforAthlete = participations.getAsociatedElements(athletes.get(z).hashCode());
             for (int j = 0; j < participationsforAthlete.size(); j++) {
                 AthleteOlympicParticipation participation = participationsforAthlete.get(j).getParticipation();
                 if (participation.getAthlete().equals(athlete)) {
@@ -330,7 +335,7 @@ public class Consultas {
             ArrayList<AthleteOlympicParticipation> participations = athlete.getAthleteOlympicParticipations();
             for (int k = 0; k < athlete.getAthleteOlympicParticipations().size(); k++) {
                 AthleteOlympicParticipation participation = participations.get(k);
-                team = participation.getAthlete().getTeam();
+                team = participation.getTeam();
                 if (participation.getOlympicGame().getYear() > yearMin && participation.getOlympicGame().getYear() < yearMax) {
                     if (!(participation.getMedal() == MedalType.Na)) {
                         team.addMedals();
@@ -345,21 +350,23 @@ public class Consultas {
             System.out.println(i);
             Athlete athlete = athletes.get(i);
             ArrayList<AthleteOlympicParticipation> participationLinkedList = athlete.getAthleteOlympicParticipations();
-            for(int k =0; k< participationLinkedList.size(); k++){
+            for (int k = 0; k < participationLinkedList.size(); k++) {
                 participationAux = participationLinkedList.get(k);
-                if(participationAux.getOlympicGame().getYear()>yearMin && participationAux.getOlympicGame().getYear()<yearMax){
-                    teamAux = participationAux.getAthlete().getTeam();
-                    if(!teamsHeap.contains(teamAux)){
-                        teamsHeap.insert(-teamAux.efectivness(),teamAux);
+                if (participationAux.getOlympicGame().getYear() > yearMin && participationAux.getOlympicGame().getYear() < yearMax) {
+                    teamAux = participationAux.getTeam();
+                    if (!teamsHeap.contains(teamAux)) {
+                        teamsHeap.insert(-teamAux.efectivness(), teamAux);
                     }
                 }
             }
         }
         for (int k = 0; k < 10; k++) {
-             team = teamsHeap.deleteMin();
+            team = teamsHeap.deleteMin();
             System.out.println(team.getName());
         }
     }
-
-
 }
+
+
+
+

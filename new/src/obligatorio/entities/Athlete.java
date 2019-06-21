@@ -15,17 +15,15 @@ public class Athlete {
     private float height;
     private int age;
     private float weight;
-    private Team team;
     private NationalOlympicCommittee region;
     private ArrayList<AthleteOlympicParticipation> athleteOlympicParticipations;
 
-    public Athlete(long id, String name, SexType sex, int age, float height, float weight, Team team, NationalOlympicCommittee region) {
+    public Athlete(long id, String name, SexType sex, int age, float height, float weight, NationalOlympicCommittee region) {
 
         this.name = name;
         this.id = id;
         this.sex = sex;
         this.weight = weight;
-        this.team = team;
         this.region = region;
 
         this.athleteOlympicParticipations = new ArrayList<AthleteOlympicParticipation>();
@@ -90,13 +88,6 @@ public class Athlete {
         this.weight = weight;
     }
 
-    public Team getTeam() {
-        return team;
-    }
-
-    public void setTeam(Team team) {
-        this.team = team;
-    }
 
     public void addParticipation(AthleteOlympicParticipation olympicParticipation) {
         athleteOlympicParticipations.add(olympicParticipation);

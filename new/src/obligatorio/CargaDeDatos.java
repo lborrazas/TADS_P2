@@ -5,7 +5,6 @@ import obligatorio.entities.enumerados.MedalType;
 import obligatorio.entities.enumerados.SeasonType;
 import obligatorio.entities.enumerados.SexType;
 import obligatorio.entities.nodos.AthleteNRegion;
-import obligatorio.entities.nodos.AthleteNTeam;
 import obligatorio.entities.nodos.ParticipationAthl;
 import obligatorio.entities.nodos.ParticipationOlympicGame;
 import tad.LinkedList;
@@ -77,7 +76,7 @@ public class CargaDeDatos {
         Float peso = 0f;
         Athlete auxAthlete;
         AthleteNRegion athleteNRegion;
-        AthleteNTeam athleteNTeam;
+
         SeasonType season;
         City city;
         Sport sport;
@@ -133,12 +132,11 @@ public class CargaDeDatos {
             }
 
 
-            auxAthlete = new Athlete((lg.valueOf(values[0])), values[1], sex, edad, altura, peso, team, toAddNoc);
+            auxAthlete = new Athlete((lg.valueOf(values[0])), values[1], sex, edad, altura, peso, toAddNoc);
 
             if (!values[0].equals(valueCeroPrev)) {
                 this.athelteHash.insert(auxAthlete);
                 athleteNRegion = new AthleteNRegion(auxAthlete);
-                athleteNTeam = new AthleteNTeam(auxAthlete);
                 this.athleteList.add(auxAthlete);
                 this.athleteHashNOC.insert(athleteNRegion);
 //              this.athleteHashTEAM.insert(athleteNTeam);
@@ -201,7 +199,7 @@ public class CargaDeDatos {
             } else {
                 medal = MedalType.Na;
             }
-            participation = new AthleteOlympicParticipation(medal, event, olympicGameAux, auxAthlete);
+            participation = new AthleteOlympicParticipation(medal, event, olympicGameAux, auxAthlete, team);
             participationArrayList.add(participation);
 
             participationAthl = new ParticipationAthl(participation);
