@@ -302,9 +302,16 @@ public class Consultas {
             System.out.println(i);
             eventHeap.insert(count, event);
         }
-        for (int k = 0; k < 10; k++) {
-            Event event = eventHeap.deleteMin();
-            System.out.println(event.getName());
+        if (sexType == SexType.FEMALE ) {
+            for (int k = 0; k < 10; k++) {
+                Event event = eventHeap.deleteMin();
+                System.out.println(event.getName() + " " + event.getSport() + " " + sexType + " " + event.getFemaleCount());
+            }
+        } else {
+            for (int k = 0; k < 10; k++) {
+                Event event = eventHeap.deleteMin();
+                System.out.println(event.getName() + " " + event.getSport() + " " + sexType + " " + event.getMaleCount());
+            }
         }
 
     }
@@ -362,7 +369,7 @@ public class Consultas {
         }
         for (int k = 0; k < 10; k++) {
             team = teamsHeap.deleteMin();
-            System.out.println(team.getName());
+            System.out.println(team.getName() + " " + team.getCompetidores() + " " + team.getMedals() );
         }
     }
 }
