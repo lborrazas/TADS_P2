@@ -1,6 +1,7 @@
 package obligatorio;
 
 import obligatorio.entities.enumerados.MedalType;
+import obligatorio.entities.enumerados.SexType;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -125,11 +126,12 @@ public class Menu{
                             if (sexo == 1) {
                                 //  salida =true;
                                 System.out.println("consulta de femenino");
-                                consultas.consulta4();
+                                consultas.consulta4(SexType.FEMALE);
                                 salida =true;
                             } else {
                                 salida = true;
                                 System.out.println("consulta de masculino");
+                                consultas.consulta4(SexType.MALE);
                             }
                         }
                         break;
@@ -137,7 +139,7 @@ public class Menu{
                         System.out.println("Indicar los 5 equipos mas efectivos entre un rango de años (especificadas al ejecutar el reporte).");
                         System.out.println("Con efectividad se refiere aquellos donde la relación entre competidores y medallas obtenidas obtiene los valores mas altos.");
                         System.out.println("Datos esperados del resultado: Nombre del equipo, cantidad de competidores, medallas obtenidas.");
-                        consultas.consulta5();
+                        consultas.consulta5(1900,2016);
                         break;
                     case 6:
                         System.out.println("Gracias por venir, vuelva pronto!");

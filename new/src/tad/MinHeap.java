@@ -38,6 +38,17 @@ public class MinHeap<K extends Comparable<K>, J> {
         return array[1]==null;
     }
 
+    public boolean contains(J data){
+        for(int i =0; i<array.length; i++) {
+            if (array[i] != null) {
+                if (array[i].data.equals(data)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public J getMin(){
         if(isMinHeap)return array[1].data;
         return null;

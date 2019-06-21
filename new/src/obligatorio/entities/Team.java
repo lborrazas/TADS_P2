@@ -29,7 +29,24 @@ public class Team {
 
     private int medals;
     private int competidores;
-    private float efectividad;
+
+    public void addCompetidor(){
+        competidores++;
+    }
+
+    public void addMedals(){
+        medals++;
+    }
+
+    public void reset(){
+        competidores = 0;
+        medals = 0;
+    }
+
+    public float efectivness(){
+        float efectividad = (float)medals / (float)competidores;
+        return efectividad;
+    }
 
     public int getMedals() {
         return medals;
@@ -47,11 +64,4 @@ public class Team {
         this.competidores = competidores;
     }
 
-    public float getEfectividad() {
-        return efectividad;
-    }
-
-    public void setEfectividad(float efectividad) {
-        this.efectividad = efectividad;
-    }
 }

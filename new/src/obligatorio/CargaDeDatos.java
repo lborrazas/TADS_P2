@@ -16,21 +16,25 @@ import java.io.FileReader;
 import java.util.ArrayList;
 
 public class CargaDeDatos {
-    private ArrayList<NationalOlympicCommittee> regionsArrayList = new ArrayList<>(300);
+    private SeparateChainingHashTable<NationalOlympicCommittee> committeHash = new SeparateChainingHashTable<>(11);
     private SeparateChainingHashTable<Team> teamHash = new SeparateChainingHashTable<>(300);
-    private SeparateChainingHashTable<Athlete> athelteHash = new SeparateChainingHashTable<>(150000);
     private SeparateChainingHashTable<City> cityHash = new SeparateChainingHashTable<>(10000);
     private SeparateChainingHashTable<Sport> sportHash = new SeparateChainingHashTable<>(10000);
-    private SeparateChainingHashTable<NationalOlympicCommittee> committeHash = new SeparateChainingHashTable<>(11);
     private SeparateChainingHashTable<AthleteNRegion> athleteHashNOC = new SeparateChainingHashTable<>(150000);
-    //    private SeparateChainingHashTable<AthleteNTeam> athleteHashTEAM = new SeparateChainingHashTable<>(250);
     private SeparateChainingHashTable<ParticipationAthl> participationAthlete = new SeparateChainingHashTable<>(130000);
-    // private SeparateChainingHashTable<ParticipationOlympicGame> participationTeam = new SeparateChainingHashTable<>(100);
-    private ArrayList<Athlete> athleteList = new ArrayList<>();
-    private ArrayList<OlympicGame> olympicGameList = new ArrayList<>();
+    private SeparateChainingHashTable<Athlete> athelteHash = new SeparateChainingHashTable<>(150000);
     private SeparateChainingHashTable<OlympicGame> olympicGameHash = new SeparateChainingHashTable<>(300);
-
+    private SeparateChainingHashTable<Event> eventHash = new SeparateChainingHashTable<>(1000);
+    private ArrayList<Event> events = new ArrayList<>(1000);
+    private ArrayList<Team> teams = new ArrayList<>(1000);
+    private ArrayList<NationalOlympicCommittee> regionsArrayList = new ArrayList<>(300);
+    private ArrayList<AthleteOlympicParticipation> participationArrayList = new ArrayList<>(250000);
+    private ArrayList<OlympicGame> olympicGameList = new ArrayList<>(300);
+    private ArrayList<Athlete> athleteList = new ArrayList<>(150000);
+    //    private SeparateChainingHashTable<AthleteNTeam> athleteHashTEAM = new SeparateChainingHashTable<>(250);
+    // private SeparateChainingHashTable<ParticipationOlympicGame> participationTeam = new SeparateChainingHashTable<>(100);
     public SeparateChainingHashTable<OlympicGame> getOlympicGameHash() {
+
         return olympicGameHash;
     }
 
@@ -56,14 +60,9 @@ public class CargaDeDatos {
                 committeHash.insert(region);
             }
         }
-        System.out.println(this.committeHash.getCurrentSize());
         NationalOlympicCommittee nationalOlympicCommittee = new NationalOlympicCommittee("ALG", "Mate");
         LinkedList<NationalOlympicCommittee> list = this.committeHash.getAsociatedElements(nationalOlympicCommittee.hashCode());
-        //Solo hay uno con este hashcode pero podrian haber mas y habira que fijarse el code o id
-        System.out.println(list.get(0).getCode());
 
-        double endTime = System.nanoTime();
-        System.out.println("Carga de Datos: " + (endTime - startTime) / 1000000000 + " s");
         br.close();
 
 
@@ -91,13 +90,9 @@ public class CargaDeDatos {
         ParticipationOlympicGame participationOlympicGame;
 
         br = new BufferedReader(new FileReader("resources/athlete_events.csv"));
-        double startTime2 = System.nanoTime();
         String line2 = br.readLine();
-        int z = 1;
         while ((line2 = br.readLine()) != null) {
-            z++;
 
-            System.out.println(z);
             String[] values = line2.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
             for (int i = 0; i < values.length; i++) {
                 if (values[i].charAt(0) == '"') {
@@ -110,6 +105,7 @@ public class CargaDeDatos {
                 team = teamHash.get(team);
             } else {
                 teamHash.insert(team);
+                teams.add(team);
             }
 
 
@@ -173,6 +169,13 @@ public class CargaDeDatos {
             }
 
             event = new Event(values[13], sport);
+            if(events.contains(event)){
+                event = eventHash.get(event);
+            } else{
+                events.add(event);
+                eventHash.insert(event);
+            }
+
 
             olympicGameAux = new OlympicGame(values[8], Integer.parseInt(values[9]), season, city);
 
@@ -199,6 +202,8 @@ public class CargaDeDatos {
                 medal = MedalType.Na;
             }
             participation = new AthleteOlympicParticipation(medal, event, olympicGameAux, auxAthlete);
+            participationArrayList.add(participation);
+
             participationAthl = new ParticipationAthl(participation);
             participationOlympicGame = new ParticipationOlympicGame(participation);
 
@@ -209,8 +214,8 @@ public class CargaDeDatos {
 
 
         }
-        double endTime2 = System.nanoTime();
-        System.out.println("Carga de Datos: " + (endTime2 - startTime2) / 1000000000 + " s");
+        double endTime = System.nanoTime();
+        System.out.println("Carga de Datos: " + (endTime - startTime) / 1000000000 + " s");
 
     }
 
@@ -253,10 +258,39 @@ public class CargaDeDatos {
         return athleteList;
     }
 
+    public SeparateChainingHashTable<Team> getTeamHash() {
+        return teamHash;
+    }
+
+    public SeparateChainingHashTable<Athlete> getAthelteHash() {
+        return athelteHash;
+    }
+
+    public SeparateChainingHashTable<City> getCityHash() {
+        return cityHash;
+    }
+
+    public SeparateChainingHashTable<Sport> getSportHash() {
+        return sportHash;
+    }
+
+    public ArrayList<AthleteOlympicParticipation> getParticipationArrayList() {
+        return participationArrayList;
+    }
 
     public ArrayList<OlympicGame> getOlympicGameList() {
         return olympicGameList;
     }
 
+    public SeparateChainingHashTable<Event> getEventHash() {
+        return eventHash;
+    }
 
+    public ArrayList<Event> getEvents() {
+        return events;
+    }
+
+    public ArrayList<Team> getTeams() {
+        return teams;
+    }
 }
